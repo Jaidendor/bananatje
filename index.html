@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css?v=1.1">
     <title>home</title>
     <script src="script.js" defer></script>
     <script src="game.js" defer></script>
@@ -20,12 +20,5 @@
     <img src="https://picsum.photos/200" alt="">
 </div>
 
-<script>
-    fetch('nav.html')
-        .then(response => response.text())
-        .then(data => {
-            document.getElementById('navbar').innerHTML = data;
-        });
-</script>
 </body>
 </html>

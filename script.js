@@ -1,3 +1,15 @@
+// Load Navigation
+document.addEventListener('DOMContentLoaded', function() {
+    const navbar = document.getElementById('navbar');
+    if (navbar) {
+        fetch('nav.html')
+            .then(response => response.text())
+            .then(data => {
+                navbar.innerHTML = data;
+            });
+    }
+});
+
 document.addEventListener('click', function (event) {
     // Handle logo click for minigame
     if (event.target.classList.contains('logo')) {
