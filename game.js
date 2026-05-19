@@ -17,7 +17,7 @@ function startMinigame() {
         const container = document.createElement('div');
         container.id = 'game-container';
         container.innerHTML = `
-            <div id="game-msg">Press Space to Jump. Close with ESC.</div>
+            <div id="game-msg">Press Space or Tap to Jump. Close with ESC.</div>
             <div id="score">0</div>
             <div id="dino" data-jumping="false">🍌</div>
         `;
@@ -41,8 +41,16 @@ function startMinigame() {
     dino.style.bottom = '0px';
 
     document.addEventListener('keydown', handleGameInput);
+    container.addEventListener('touchstart', handleTouchJump, { passive: true });
+    container.addEventListener('mousedown', handleTouchJump);
     
     gameLoop();
+}
+
+function handleTouchJump(e) {
+    if (gameActive) {
+        jump();
+    }
 }
 
 function handleGameInput(e) {
@@ -156,12 +164,15 @@ function stopGame() {
     clearTimeout(obstacleTimeout);
     document.removeEventListener('keydown', handleGameInput);
     
-    const overlay = document.getElementById('game-overlay');
     const container = document.getElementById('game-container');
-    if (overlay) overlay.style.display = 'none';
     if (container) {
+        container.removeEventListener('touchstart', handleTouchJump);
+        container.removeEventListener('mousedown', handleTouchJump);
         container.style.display = 'none';
         // Remove existing obstacles
         document.querySelectorAll('.obstacle').forEach(obs => obs.remove());
     }
+    
+    const overlay = document.getElementById('game-overlay');
+    if (overlay) overlay.style.display = 'none';
 }
